@@ -47,8 +47,7 @@ and simulates a fetch-decode-execute loop according to the input files
 4. The Simulator generates txt files which provide overall extensive information regarding CPU and I/O devices state at each cycle 
 
  
-
->![image](https://github.com/AlonPulver/CPU-Simulator/issues/2#issue-1458345823)
+>![image](https://user-images.githubusercontent.com/118295713/203125403-8d5214b0-08a0-4780-ac1a-ba5df2c5a874.png)
 
 The files which are marked in red are the input files from the user and the files marked in green will
 be created automatically by the Assembler and Simulator programs (description for each file is provided in the '_files_' segment below)
@@ -65,7 +64,7 @@ At your convenience, several Assembly files with different functionalities have 
 
 The CPU contains 16 32-bit registers, as seen below:
 
->![image](https://user-images.githubusercontent.com/118295713/203125403-8d5214b0-08a0-4780-ac1a-ba5df2c5a874.png)
+  ![image](https://user-images.githubusercontent.com/72262159/128005564-030d1883-0201-4df7-bd23-88635a6d8e4a.png)
 
 <a name="isa"></a>
 ## ISA & MEMORY
