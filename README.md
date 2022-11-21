@@ -27,13 +27,13 @@
 
 Basic Assembler and Simulator programs for a simplified MIPS Architecture Processor
 
-The Simulator implements Arithmetic, Branching, and I/O instructions, Interrupts derived from devices and user-generated,
+The Simulator implements Arithmetic, Branching, Monitor, leds and I/O instructions, Interrupts derived from devices and user-generated,
 and interconnection between CPU and I/O devices  
 
 The project is comprised of 3 parts: Assembly Files, Assembler program, and Simulator Program.
 Both the Assembler and Simulator are implemented in C language
 
-Lines of code: ~1800
+Lines of code: ~2200
 
 <a name="flo"></a>
 ## FLOW
@@ -56,8 +56,8 @@ be created automatically by the Assembler and Simulator programs (description fo
 At your convenience, several Assembly files with different functionalities have been provided and further detailed in the '_Assembly_Files_Description.md_' file
 <a name="spec"></a>
 ## BASIC SPECIFICATION
-1. Clock Rate - 1024 cycles per second
-2. Assembly Instructions which utilize the $imm register - takes 2 cycles to complete; other Instructions takes 1 cycle.
+1. Clock Rate - 512 cycles per second
+2. Assembly Instructions which utilize the $imm register and use lw or sw instruction - takes 3 cycles to complete; other Instructions which utilize the $imm takes 2 cycle, all other takes 1 cycle.
 3. The CPU executes only a single instruction at a time
 
 <a name="cpu_reg"></a>
@@ -71,7 +71,7 @@ The CPU contains 16 32-bit registers, as seen below:
 ## ISA & MEMORY
 
 Memory is divided between Instruction Memory and Data Memory:
-  1. Instruction memory is comprised of 1024 20-bit instructions (1024 instructions encoded to machine language)
+  1. Instruction memory is comprised of 512 20-bit instructions (1024 instructions encoded to machine language)
   2. Data Memory is comprised of 4096 32-bit memory addresses
 
 
@@ -100,9 +100,9 @@ The processor is a dedicated I/O processor - each device has its own I/O registe
 
 **Computer Screen**
 
-The CPU is connected to a 352x288 monochromatic computer screen. each pixel is represented with 8 bits where 0 is black and 256 is white
+The CPU is connected to a 256x256 monochromatic computer screen. each pixel is represented with 8 bits where 0 is black and 256 is white
 
- The screen has a 352x288 frame buffer which at any time will store the current screen state. at the beginning all values are set to 0
+ The screen has a 256x256 frame buffer which at any time will store the current screen state. at the beginning all values are set to 0
 
 ‘monitorx’ register contains the x coordinate where the CPU will change it's pixel value. equivalently to monitory register and y coordinate.
 the ‘monitordata’ register holds the pixel value which the CPU wishes to write
@@ -114,7 +114,7 @@ incremented by 1
 
 **Hard Drive**
 
-The CPU is connected to 64KB hard-drive, comprised of 128 512-bytes sectors. The CPU uses DMA to copy a sector from main memory to disk and vice versa
+The CPU is connected to 64KB hard-drive, comprised of 128 128-bytes sectors. The CPU uses DMA to copy a sector from main memory to disk and vice versa
 
 It takes 1024 clock cycles to copy a sector which during this time the diskstatus register value will be 1 (indicating hard-drive is busy).  Upon receiving write/read command, the Assembly code must assure that the hard-drive is free to receive a new command by checking the diskstatus register. 
 after 1024 clock cycles, diskcmd and diskstatus registers' values will be set to zero
@@ -148,18 +148,19 @@ trace.txt hwregtrace.txt cycles.txt leds.txt monitor.txt monitor.yuv diskout.txt
 
 |File   |  Type |  Description |
 | ------------ | ------------ | ------------ |
-|  **imemin.txt** | input  | contains Instruction Memory (machine language instructions). each row is a memory address and contains an instruction comprised of 5 hex digits. if the number of rows is less than 1024, we assume that the rest of the data is uninitialized  |
-|  **dmemin.txt** | input  |  contains Data Memory. each row contains data comprised of 8 hex digits. Data is stored in memory using a special command which can used in the assembly program -  **.word (address) (data)**  |
+|  **memin.txt** | input  | contains Instruction Memory (machine language instructions). each row is a memory address and contains an instruction comprised of 5 hex digits. if the number of rows is less than 1024, we assume that the rest of the data is uninitialized  |
 | **diskin.txt**  | input  | this file has the same format as 'dmemin.txt' and represents the data stored in the disk when the program is executed  |
 |   **irq2in.txt** | input  |  specifies in which clock cycles an interrupt should occur (can contain nothing) |
-|  **dmemout.txt** |  output | this file specifies the information stored on the RAM when the execution is finished. has the same format as 'dmemout.txt'  |
+|  **memout.txt** |  output | this file specifies the information stored on the RAM when the execution is finished. has the same format as 'dmemout.txt'  |
 |  **regout.txt**  | output  | contains the CPU’s registers' content at the end of the simulation  |
 | **trace.txt**  |  output | This file contains a line of text for each instruction executed by the simulator, in the following format: **PC INST R0 R1 R2 R3 R4 R5 R6 R7 R8 R9 R10 R11 R12 R13 R14 R15**. each field is printed with hex digits. the PC is the Program Counter, INST is the encoded opcode, and the following are the register's content prior to executing the current command (with sign extension)  |
-|  **hwregtrace.txt**  |  output | contains a line of text for each I/O operation, in the following format: **CYCLE READ/WRITE NAME DATA**. where CYCLE is the current time cycle, READ/WRITE is dependent on the operation executed, NAME is the HW register's name, and DATA is the data written/ read 
-  |
+|  **hwregtrace.txt**  |  output | contains a line of text for each I/O operation, in the following format: **CYCLE READ/WRITE NAME DATA**. where CYCLE is the current time cycle, READ/WRITE is dependent on the operation executed, NAME is the HW register's name, and DATA is the data written/ read|
 |  **cycles.txt** | output  | contains two lines, one with the overall time cycles taken to simulate the program and the second with the overall machine instructions executed  |
 | **monitor.txt**  |  output |  contains the pixel values at the end of the simulation on the screen. each row contains a single pixel's value represented with two hex digits. The screen's overview is top-down, left-right. |
 |  **diskout.txt** | output  |  contains the disk's data at the end of the simulation |
+|  **leds.txt** | output  |  contains the leds that have been turn on in the work at the end of the simulation |
+|  **display7seg.txt** | output  |  contains the display data after the calling to the function at the end of the simulation |
+|  **monitor.yuv** | output  |  contains the display image at the end of the simulation |
 
 
 <a name="asm"></a>
