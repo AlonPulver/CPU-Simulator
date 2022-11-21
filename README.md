@@ -65,7 +65,7 @@ At your convenience, several Assembly files with different functionalities have 
 
 The CPU contains 16 32-bit registers, as seen below:
 
-  ![image](https://user-images.githubusercontent.com/72262159/128005564-030d1883-0201-4df7-bd23-88635a6d8e4a.png)
+>![image](https://user-images.githubusercontent.com/118295713/203125403-8d5214b0-08a0-4780-ac1a-ba5df2c5a874.png)
 
 <a name="isa"></a>
 ## ISA & MEMORY
