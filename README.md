@@ -48,7 +48,7 @@ and simulates a fetch-decode-execute loop according to the input files
 
  
 
->![image](https://github.com/AlonPulver/CPU-Simulator/issues/1#issue-1458344370)
+>![image](https://github.com/AlonPulver/CPU-Simulator/issues/2#issue-1458345823)
 
 The files which are marked in red are the input files from the user and the files marked in green will
 be created automatically by the Assembler and Simulator programs (description for each file is provided in the '_files_' segment below)
