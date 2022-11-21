@@ -48,7 +48,7 @@ and simulates a fetch-decode-execute loop according to the input files
 
  
 
->![image](https://user-images.githubusercontent.com/72262159/128005071-bbc5d971-dd4c-4594-9bd3-bb8b59b24df5.png)
+>![image](file:///Users/alonpulvermacher/Downloads/IMG_0217.jpg)
 
 The files which are marked in red are the input files from the user and the files marked in green will
 be created automatically by the Assembler and Simulator programs (description for each file is provided in the '_files_' segment below)
